@@ -21,26 +21,14 @@ plugins {
     `maven-publish`
 
     id("com.gradle.plugin-publish") version "1.2.1"
-    id("org.jetbrains.kotlin.jvm")  version "1.9.22"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
+    id("org.jetbrains.kotlin.jvm")  version "2.0.20"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.20"
 }
-
-fun getGitHubRepositoryUsername(): String =
-    findProperty("GITHUB_USER")?.toString() ?: System.getenv("GITHUB_USER") ?: ""
-
-fun getGitHubRepositoryPassword(): String =
-    findProperty("GITHUB_TOKEN")?.toString() ?: System.getenv("GITHUB_TOKEN") ?: ""
 
 val trappsyncVersion: String by project
 
 group = "dev.sevencircle.trappsync.plugin"
 version = trappsyncVersion
-
-fun getGitHubRepositoryUsername(): String =
-    findProperty("GITHUB_USER")?.toString() ?: System.getenv("GITHUB_USER") ?: ""
-
-fun getGitHubRepositoryPassword(): String =
-    findProperty("GITHUB_PACKAGES")?.toString() ?: System.getenv("GITHUB_PACKAGES") ?: ""
 
 dependencies {
     implementation(pluginLibs.kotlinx.serialization.json)
@@ -51,7 +39,7 @@ testing {
         // Configure the built-in test suite
         val test by getting(JvmTestSuite::class) {
             // Use Kotlin Test test framework
-            useKotlinTest("1.9.22")
+            useKotlinTest("2.0.20")
         }
     }
 }
@@ -73,58 +61,14 @@ gradlePlugin {
 }
 
 publishing {
-    publications {
-        register<MavenPublication>("offlinePlugin") {
-            afterEvaluate {
-                // Adding the the generated .aar files.
-                artifact("$projectDir/build/libs/$artifactId-$trappsyncVersion.jar")
-                artifact("$projectDir/build/libs/$artifactId-$trappsyncVersion-javadoc.jar") {
-                    classifier = "javadoc"
-                }
-                artifact("$projectDir/build/libs/$artifactId-$trappsyncVersion-sources.jar") {
-                    classifier = "sources"
-                }
-            }
-            version = trappsyncVersion
-            groupId = "dev.sevencircle.trappsync.plugin.offline"
-            artifactId = "dev.sevencircle.trappsync.plugin.offline.gradle.plugin"
-            pom {
-                name.set("TrappSync Offline Plugin")
-                developers {
-                    developer {
-                        organization.set("Var Group S.p.A")
-                        email.set("dev7circle@vargroup.it")
-                        organizationUrl.set("https://www.vargroup.it/")
-                    }
-                }
-                withXml {
-                    val dependenciesNode = asNode().appendNode("dependencies")
-                    configurations.getByName("implementation") {
-                        dependencies.forEach {
-                            val dependencyNode = dependenciesNode.appendNode("dependency")
-                            dependencyNode.appendNode("groupId", it.group)
-                            dependencyNode.appendNode("artifactId", it.name)
-                            dependencyNode.appendNode("version", it.version)
-                        }
-                    }
-                }
-            }
-        }
-    }
     repositories {
         maven {
             name = "localPluginRepository"
             url = uri("../local-plugin-repository")
         }
-        maven {
-            name = "GitHub"
-            url = uri("https://maven.pkg.github.com/7Circle/7circle_trapp_plugin_android")
-            credentials {
-                username = getGitHubRepositoryUsername()
-                password = getGitHubRepositoryPassword()
-            }
-        }
     }
 }
 
-apply(from = rootDir.resolve("signing.gradle.kts"))
+fun isReleaseBuild(): Boolean = System.getenv("IS_RELEASE") == "true"
+
+if (isReleaseBuild()) apply(from = rootDir.resolve("signing.gradle.kts"))
