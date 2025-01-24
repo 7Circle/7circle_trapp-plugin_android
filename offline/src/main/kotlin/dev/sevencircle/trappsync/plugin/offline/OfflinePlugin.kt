@@ -14,10 +14,13 @@ package dev.sevencircle.trappsync.plugin.offline
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.UnknownConfigurationException
+import org.gradle.internal.impldep.org.bouncycastle.asn1.x500.style.RFC4519Style.description
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.provideDelegate
+import java.time.Instant
+import java.util.Date
 
 /**
  * Created by Samuele Pozzebon on 22/08/2024
@@ -29,7 +32,9 @@ class OfflinePlugin : Plugin<Project> {
         val configuration = project.extensions.create<OfflinePluginConfig>("trappsync")
 
         configuration.offlineJsonFile.convention(project.rootProject.layout.projectDirectory.file(JSON_FILE_NAME))
-        configuration.offlineHash.convention(DEFAULT_HASH)
+
+        // Use epoch milliseconds as default hash in order to force the update of the strings by the library
+        configuration.offlineHash.convention(Instant.now().toEpochMilli().toString())
 
         project.tasks.register("generateTrappFile", GenerateOfflineFilesTask::class.java) {
             group = "TrappSync Offline"
@@ -52,7 +57,6 @@ class OfflinePlugin : Plugin<Project> {
         project.dependencies {
             try {
                 apply {
-                    // TODO: Remember to change the version of trapp
                     add("implementation", "dev.sevencircle.trappsync:core:$trappsyncVersion")
                 }
             } catch (_: UnknownConfigurationException) {

@@ -19,7 +19,6 @@ import org.gradle.api.provider.Property
  */
 
 internal val JSON_FILE_NAME = "offline.json"
-internal val DEFAULT_HASH = "OFFLINE_HASH"
 
 interface OfflinePluginConfig {
     val offlineJsonFile: RegularFileProperty

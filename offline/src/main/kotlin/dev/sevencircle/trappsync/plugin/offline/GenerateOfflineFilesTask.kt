@@ -24,6 +24,7 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 import java.nio.charset.Charset
+import java.time.Instant
 
 /**
  * Created by Samuele Pozzebon on 22/08/2024
@@ -32,11 +33,13 @@ import java.nio.charset.Charset
 internal abstract class GenerateOfflineFilesTask : DefaultTask() {
     private val defaultFile: RegularFile = project.rootProject.layout.projectDirectory.file(JSON_FILE_NAME)
 
+    private val defaultHash: String = Instant.now().toEpochMilli().toString()
+
     @InputFiles
     val offlineFileProperty: RegularFileProperty = project.objects.fileProperty().convention(defaultFile)
 
     @Input
-    val offlineHash: Property<String> = project.objects.property(String::class.java).convention(DEFAULT_HASH)
+    val offlineHash: Property<String> = project.objects.property(String::class.java).convention(defaultHash)
 
     @OutputDirectory
     val generatedDir: Provider<Directory> = project.layout.buildDirectory.dir("generated/source/trappsync/dev/sevencircle/trappsync/plugin/offline")
