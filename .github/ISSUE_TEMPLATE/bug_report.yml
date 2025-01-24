@@ -1,0 +1,93 @@
+name: Bug Report 🐛
+description: Create a new bug report.
+title: 'Bug 🐛: <title>'
+labels: [Bug, Needs Triage]
+body:
+
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: 'Please [search :mag: the issues](https://github.com/7Circle/7circle_trapp-plugin_android/issues) to check if this bug has already been reported.'
+      options:
+        - label: I have searched the existing issues
+          required: true
+
+  - type: input
+    attributes:
+      label: Plugin Version
+      description: What version of the plugin are you running?
+      placeholder: Check your build.gradle.kts file or your libs.versions.toml file
+    validations:
+      required: true
+  
+  - type: input
+    attributes:
+      label: TrAPP Version
+      description: What version of the library are you running?
+      placeholder: Check your build.gradle.kts file or your libs.versions.toml file. If you don'f find it, that means that the version is the same as the plugin version.
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: Is this issue reproducible using the latest components?
+      description: |
+        You can retrieve the latest plugin version by checking the releases. If you are importing the library as a separate entry, we strongly recommend to remove the import and let the plugin import the latest known compatible version of the library. If you are not up to date, please try to reproduce your issue after updating all affected components.
+      options:
+        - label: I confirm the issue is still reproducible with the latest component versions
+
+  - type: textarea
+    attributes:
+      label: Current Behavior
+      description: Describe the problem you are experiencing. **Please do not paste your logs here.** Screenshots are welcome.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: Describe what you expect to happen instead.
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Error Log
+      description: |
+        Please create a [Gist](https://gist.github.com) with your _full_ error log and link it here.
+
+        :warning: _Remember to redact or remove any sensitive information!_
+      placeholder: 'https://gist.github.com/...'
+
+  - type: textarea
+    attributes:
+      label: Environment Details
+      description: |
+        Please provide additional information about your environment; feel free to remove any items which are not relevant.
+
+        :warning: _Remember to redact or remove any sensitive information!_
+      value: |
+        - Kotlin version:
+        - Last component version(s) which did _not_ exhibit the problem:
+        - Platform and version of device under test:
+        - Real device or emulator/simulator:
+
+  - type: textarea
+    attributes:
+      label: Minimal Reproducible Example
+      description: |
+        Please provide [the smallest, complete code snippet](https://stackoverflow.com/help/minimal-reproducible-example) that the plugin maintainers can run to reproduce the issue. Failing this, any sort of reproduction steps are better than nothing!
+
+        If the result is more than a screenful of text _or_ requires multiple files, please:
+
+        - _Attach_ (do not paste) it to this textarea, _or_
+        - Put it in a [Gist](https://gist.github.com) and paste the link, _or_
+        - Provide a link to a new or existing public repository exhibiting the issue
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Further Information
+      description: If needed, please provide additional information about your issue (attachments, links, references, etc.).
+
