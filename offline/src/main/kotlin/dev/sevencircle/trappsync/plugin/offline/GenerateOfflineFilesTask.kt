@@ -58,34 +58,42 @@ internal abstract class GenerateOfflineFilesTask : DefaultTask() {
         val translations: OfflineJson = jsonParser.decodeFromString<OfflineJson>(offlineFile.readText(Charset.defaultCharset()))
 
         val resource = File(generatedDir.get().asFile, "OfflineLanguages.kt")
-        resource.createNewFile()
 
-        resource.writeText("package dev.sevencircle.trappsync.plugin.offline\n")
-        resource.appendText("\n")
-        resource.appendText("import dev.sevencircle.trappsync.core.domain.LanguageModel\n")
-        resource.appendText("import dev.sevencircle.trappsync.core.domain.OfflineLanguages\n")
-        resource.appendText("\n")
-        resource.appendText("\n")
-        resource.appendText("val parsedLanguages: OfflineLanguages = object : OfflineLanguages {\n")
-        resource.appendText("\toverride val languageMap = setOf(\n")
-        translations.translations.entries.forEach { (language, strings) ->
-            resource.appendText("\t\tLanguageModel(\n")
-            resource.appendText("\t\t\tlanguageCode = \"$language\",\n")
-            resource.appendText("\t\t\ttranslationMap = mapOf(\n")
-            strings.entries.forEach { (key, value) ->
-                resource.appendText("\t\t\t\t\"$key\" to \"$value\",\n")
-            }
-            resource.appendText("\t\t\t),\n")
-            resource.appendText("\t\thash = \"${offlineHash.get()}\"\n")
-            resource.appendText("\t\t),\n")
-        }
-        resource.appendText("\t)\n\n")
-        resource.appendText("\toverride val baseLanguage = \"${translations.baseLanguage}\"\n\n")
-        resource.appendText("\toverride val localeMap = mapOf(\n")
-        translations.languageFallback.entries.forEach { (key, value) ->
-            resource.appendText("\t\t\"$key\" to \"$value\", \n")
-        }
-        resource.appendText("\t)\n")
-        resource.appendText("}")
+        generateFile(resource, translations, offlineHash.get())
     }
+
+}
+
+internal fun generateFile(resource: File, translations: OfflineJson, offlineHash: String) : File {
+    resource.createNewFile()
+
+    resource.writeText("package dev.sevencircle.trappsync.plugin.offline\n")
+    resource.appendText("\n")
+    resource.appendText("import dev.sevencircle.trappsync.core.domain.LanguageModel\n")
+    resource.appendText("import dev.sevencircle.trappsync.core.domain.OfflineLanguages\n")
+    resource.appendText("\n")
+    resource.appendText("\n")
+    resource.appendText("val parsedLanguages: OfflineLanguages = object : OfflineLanguages {\n")
+    resource.appendText("\toverride val languageMap = setOf(\n")
+    translations.translations.entries.forEach { (language, strings) ->
+        resource.appendText("\t\tLanguageModel(\n")
+        resource.appendText("\t\t\tlanguageCode = \"$language\",\n")
+        resource.appendText("\t\t\ttranslationMap = mapOf(\n")
+        strings.entries.forEach { (key, value) ->
+            resource.appendText("\t\t\t\t\"$key\" to \"$value\",\n")
+        }
+        resource.appendText("\t\t\t),\n")
+        resource.appendText("\t\thash = \"$offlineHash\"\n")
+        resource.appendText("\t\t),\n")
+    }
+    resource.appendText("\t)\n\n")
+    resource.appendText("\toverride val baseLanguage = \"${translations.baseLanguage}\"\n\n")
+    resource.appendText("\toverride val localeMap = mapOf(\n")
+    translations.languageFallback.entries.forEach { (key, value) ->
+        resource.appendText("\t\t\"$key\" to \"$value\", \n")
+    }
+    resource.appendText("\t)\n")
+    resource.appendText("}")
+
+    return resource
 }

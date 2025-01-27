@@ -5,7 +5,7 @@
  *  \ \_\    \ \_____\   \ \_\  \ \__/".~\_\
  *   \/_/     \/_____/    \/_/   \/_/   \/_/
  *
- * Copyright © 2025 Zero12 S.r.l. All rights reserved.
+ * Copyright © 2025 Var Group S.p.A. All rights reserved.
  *  
  */
 
@@ -30,18 +30,22 @@ val trappsyncVersion: String by project
 group = "dev.sevencircle.trappsync.plugin"
 version = trappsyncVersion
 
-dependencies {
-    implementation(pluginLibs.kotlinx.serialization.json)
-}
-
-testing {
-    suites {
-        // Configure the built-in test suite
-        val test by getting(JvmTestSuite::class) {
-            // Use Kotlin Test test framework
-            useKotlinTest("2.0.20")
+sourceSets {
+    test {
+        kotlin {
+            srcDir("src/test/kotlin")
         }
     }
+}
+
+dependencies {
+    implementation(pluginLibs.kotlinx.serialization.json)
+    testImplementation(gradleTestKit())
+    testImplementation(kotlin("test"))
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 gradlePlugin {
@@ -58,6 +62,8 @@ gradlePlugin {
             vcsUrl = "https://github.com/7Circle/7circle_trappsync_plugin.git"
         }
     }
+
+    testSourceSets()
 }
 
 publishing {

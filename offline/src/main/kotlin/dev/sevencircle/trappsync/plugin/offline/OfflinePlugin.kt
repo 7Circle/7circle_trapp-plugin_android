@@ -5,7 +5,7 @@
  *  \ \_\    \ \_____\   \ \_\  \ \__/".~\_\
  *   \/_/     \/_____/    \/_/   \/_/   \/_/
  *
- * Copyright © 2025 Zero12 S.r.l. All rights reserved.
+ * Copyright © 2025 Var Group S.p.A. All rights reserved.
  *  
  */
 
@@ -14,13 +14,11 @@ package dev.sevencircle.trappsync.plugin.offline
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.UnknownConfigurationException
-import org.gradle.internal.impldep.org.bouncycastle.asn1.x500.style.RFC4519Style.description
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.provideDelegate
 import java.time.Instant
-import java.util.Date
 
 /**
  * Created by Samuele Pozzebon on 22/08/2024

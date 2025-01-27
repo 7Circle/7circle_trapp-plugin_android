@@ -5,7 +5,7 @@
  *  \ \_\    \ \_____\   \ \_\  \ \__/".~\_\
  *   \/_/     \/_____/    \/_/   \/_/   \/_/
  *
- * Copyright © 2025 Zero12 S.r.l. All rights reserved.
+ * Copyright © 2025 Var Group S.p.A. All rights reserved.
  *  
  */
 
