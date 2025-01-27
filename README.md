@@ -36,7 +36,7 @@ trappsync = { id = "dev.sevencircle.trappsync.plugin.offline", version.ref = "tr
 
 ``` gradle
 plugins {
-    apply(trappsync)
+    apply(libs.plugins.trappsync)
 }
 ```
 
