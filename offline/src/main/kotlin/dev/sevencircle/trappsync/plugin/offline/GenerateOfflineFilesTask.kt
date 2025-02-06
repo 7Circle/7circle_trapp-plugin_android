@@ -80,20 +80,32 @@ internal fun generateFile(resource: File, translations: OfflineJson, offlineHash
         resource.appendText("\t\t\tlanguageCode = \"$language\",\n")
         resource.appendText("\t\t\ttranslationMap = mapOf(\n")
         strings.entries.forEach { (key, value) ->
-            resource.appendText("\t\t\t\t\"$key\" to \"$value\",\n")
+            resource.appendText("\t\t\t\t\"$key\" to \"${sanitizeString(value)}\",\n")
         }
         resource.appendText("\t\t\t),\n")
-        resource.appendText("\t\thash = \"$offlineHash\"\n")
+        resource.appendText("\t\t\thash = \"$offlineHash\"\n")
         resource.appendText("\t\t),\n")
     }
     resource.appendText("\t)\n\n")
     resource.appendText("\toverride val baseLanguage = \"${translations.baseLanguage}\"\n\n")
     resource.appendText("\toverride val localeMap = mapOf(\n")
     translations.languageFallback.entries.forEach { (key, value) ->
-        resource.appendText("\t\t\"$key\" to \"$value\", \n")
+        resource.appendText("\t\t\"$key\" to \"$value\",\n")
     }
     resource.appendText("\t)\n")
-    resource.appendText("}")
+    resource.appendText("}\n")
 
     return resource
+}
+
+private fun sanitizeString(string: String): String {
+    return string
+        .replace("\\", "\\\\")
+        .replace("\t", "\\t")
+        .replace("\b", "\\b")
+        .replace("\n", "\\n")
+        .replace("\r", "\\r")
+        .replace("\'", "\\\'")
+        .replace("\"", "\\\"")
+        .replace("$", "\\$")
 }

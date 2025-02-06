@@ -25,8 +25,9 @@ val parsedLanguages: OfflineLanguages = object : OfflineLanguages {
 				"list.namepage" to "Vocabulary list ",
 				"list.items" to "",
 				"item5.title" to "",
+				"sanitize.test" to "Tab \t, backspace \b, new line \n, carriage return \r, double quote \", backslash \\, dollar \$test",
 			),
-		hash = "1737707679811"
+			hash = "1737707679811"
 		),
 		LanguageModel(
 			languageCode = "en-GB",
@@ -48,7 +49,7 @@ val parsedLanguages: OfflineLanguages = object : OfflineLanguages {
 				"list.items" to "",
 				"item5.title" to "",
 			),
-		hash = "1737707679811"
+			hash = "1737707679811"
 		),
 		LanguageModel(
 			languageCode = "fr-FR",
@@ -70,14 +71,14 @@ val parsedLanguages: OfflineLanguages = object : OfflineLanguages {
 				"list.items" to "",
 				"item5.title" to "",
 			),
-		hash = "1737707679811"
+			hash = "1737707679811"
 		),
 		LanguageModel(
 			languageCode = "it-IT",
 			translationMap = mapOf(
 				"home.greetings" to "Ciao {{1}}!",
 				"home.welcome" to "Benvenuto in TrAPPSync",
-				"home.welcomeSubtitle" to "Questa è una demo dell'app sviluppata da zero12 srl",
+				"home.welcomeSubtitle" to "Questa è una demo dell\'app sviluppata da zero12 srl",
 				"list.title" to "Lista dei vocaboli",
 				"item1.title" to "Oggetto 1 - Titolo",
 				"item1.body" to "Oggetto 1 - Corpo",
@@ -92,33 +93,33 @@ val parsedLanguages: OfflineLanguages = object : OfflineLanguages {
 				"list.items" to "",
 				"item5.title" to "",
 			),
-		hash = "1737707679811"
+			hash = "1737707679811"
 		),
 	)
 
 	override val baseLanguage = "en-US"
 
 	override val localeMap = mapOf(
-		"en" to "en-US", 
-		"en-AU" to "en-US", 
-		"en-CA" to "en-US", 
-		"en-GB" to "en-GB", 
-		"en-IE" to "en-US", 
-		"en-IN" to "en-US", 
-		"en-MT" to "en-US", 
-		"en-NZ" to "en-US", 
-		"en-PH" to "en-US", 
-		"en-SG" to "en-US", 
-		"en-US" to "en-US", 
-		"en-ZA" to "en-US", 
-		"fr" to "fr-FR", 
-		"fr-BE" to "fr-FR", 
-		"fr-CA" to "fr-FR", 
-		"fr-CH" to "fr-FR", 
-		"fr-FR" to "fr-FR", 
-		"fr-LU" to "fr-FR", 
-		"it" to "it-IT", 
-		"it-CH" to "it-IT", 
-		"it-IT" to "it-IT", 
+		"en" to "en-US",
+		"en-AU" to "en-US",
+		"en-CA" to "en-US",
+		"en-GB" to "en-GB",
+		"en-IE" to "en-US",
+		"en-IN" to "en-US",
+		"en-MT" to "en-US",
+		"en-NZ" to "en-US",
+		"en-PH" to "en-US",
+		"en-SG" to "en-US",
+		"en-US" to "en-US",
+		"en-ZA" to "en-US",
+		"fr" to "fr-FR",
+		"fr-BE" to "fr-FR",
+		"fr-CA" to "fr-FR",
+		"fr-CH" to "fr-FR",
+		"fr-FR" to "fr-FR",
+		"fr-LU" to "fr-FR",
+		"it" to "it-IT",
+		"it-CH" to "it-IT",
+		"it-IT" to "it-IT",
 	)
 }

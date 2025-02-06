@@ -40,7 +40,8 @@
       "home.namepage": " Home",
       "list.namepage": "Vocabulary list ",
       "list.items": "",
-      "item5.title": ""
+      "item5.title": "",
+      "sanitize.test": "Tab \t, backspace \b, new line \n, carriage return \r, double quote \", backslash \\, dollar $test"
     },
     "en-GB": {
       "home.greetings": "Hi {{0}}!",
