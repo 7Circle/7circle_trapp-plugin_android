@@ -58,8 +58,8 @@ gradlePlugin {
             description = "A Gradle plugin to generate offline files for TrAPP Sync"
             tags = listOf("trappsync", "offline")
             version = trappsyncVersion
-            website = "https://github.com/7Circle/7circle_trappsync_plugin"
-            vcsUrl = "https://github.com/7Circle/7circle_trappsync_plugin.git"
+            website = "https://github.com/7Circle/7circle_trapp-plugin_android"
+            vcsUrl = "https://github.com/7Circle/7circle_trapp-plugin_android"
         }
     }
 
